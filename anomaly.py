@@ -34,18 +34,21 @@ X_scaled = scaler.fit_transform(X)
 iso_forest = IsolationForest(contamination=0.1, random_state=42)  # contamination = proportion of outliers
 y_pred_iso = iso_forest.fit_predict(X_scaled)
 
+# -1 indicates an anomaly, 1 indicates a normal observation
 data['Anomaly_Isolation_Forest'] = y_pred_iso
 
 # Save the DataFrame with anomaly labels to a new CSV file
 output_file = 'telecom_anomaly_with_labels.csv'
 data.to_csv(output_file, index=False)
-
+print(f"Processed data with anomaly labels saved to {output_file}.")
 
 # Visualize the anomalies detected by Isolation Forest
 plt.figure(figsize=(10, 6))
 sns.scatterplot(
     x=data['Latency'], 
-
+    y=data['Packet_Loss_Rate'], 
+    hue=data['Anomaly_Isolation_Forest'], 
+    palette={1: 'blue', -1: 'red'}
 )
 plt.title('Anomaly Detection using Isolation Forest')
 plt.xlabel('Latency')

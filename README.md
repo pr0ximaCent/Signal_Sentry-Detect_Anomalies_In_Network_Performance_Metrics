@@ -46,6 +46,10 @@ data = pd.read_csv(data_file)
 - Reads the dataset `telecom_anomaly.csv` into a DataFrame for further processing.
 - Assumes the file contains columns relevant to the problem domain, such as network parameters.
 
+
+![Glimpse](https://github.com/user-attachments/assets/295c6302-a26a-40dc-abd0-f3022d2732e2)
+
+
 ---
 
 ### 4. **Handling Missing Values**
@@ -100,6 +104,10 @@ data['Anomaly_Isolation_Forest'] = y_pred_iso
   - `random_state=42`: Ensures reproducibility.
 - Adds a new column `Anomaly_Isolation_Forest` to the DataFrame with anomaly labels (`1` for normal, `-1` for anomaly).
 
+
+
+
+
 ---
 
 ### 8. **Saving the Results**
@@ -137,6 +145,8 @@ plt.show()
 - Creates a scatter plot of `Latency` vs. `Packet Loss Rate`, highlighting anomalies in red and normal points in blue.
 - Saves the plot as `anomaly_detection_plot.png` for further analysis.
 
+![anomaly_detection_isolation_forest](https://github.com/user-attachments/assets/0cbdb49d-46b5-4899-a5c1-2d13a5d0de61)
+
 ---
 
 ### 10. **Anomaly Detection Using Local Outlier Factor (LOF)**
@@ -166,6 +176,10 @@ plt.show()
 
 - Visualizes anomalies detected by LOF using `Latency` and `Signal Strength` as axes.
 - Highlights anomalies in red and normal points in blue.
+
+![anomaly_detection_lof](https://github.com/user-attachments/assets/0b2fe5f3-4d9d-45c2-a714-c461cda15d68)
+
+
 
 ---
 

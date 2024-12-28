@@ -28,3 +28,31 @@ X = data[features]
 # Standardizing the features (important for distance-based algorithms)
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
+
+
+# Isolation Forest
+iso_forest = IsolationForest(contamination=0.1, random_state=42)  # contamination = proportion of outliers
+y_pred_iso = iso_forest.fit_predict(X_scaled)
+
+data['Anomaly_Isolation_Forest'] = y_pred_iso
+
+# Save the DataFrame with anomaly labels to a new CSV file
+output_file = 'telecom_anomaly_with_labels.csv'
+data.to_csv(output_file, index=False)
+
+
+# Visualize the anomalies detected by Isolation Forest
+plt.figure(figsize=(10, 6))
+sns.scatterplot(
+    x=data['Latency'], 
+
+)
+plt.title('Anomaly Detection using Isolation Forest')
+plt.xlabel('Latency')
+plt.ylabel('Packet Loss Rate')
+
+# Save the plot to a file
+plot_file = 'anomaly_detection_plot.png'
+plt.savefig(plot_file)
+print(f"Anomaly detection plot saved to {plot_file}.")
+plt.show()

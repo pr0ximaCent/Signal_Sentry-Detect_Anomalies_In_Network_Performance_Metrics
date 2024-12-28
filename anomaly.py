@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import IsolationForest
+from sklearn.neighbors import LocalOutlierFactor
+from sklearn.svm import OneClassSVM
 
 # Set the directory where the files are located
 base_dir = r"C:\Users\ASUS\Downloads\Telecom Anomaly Detection"
@@ -29,12 +31,9 @@ X = data[features]
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
-
-# Isolation Forest
+# --- Isolation Forest ---
 iso_forest = IsolationForest(contamination=0.1, random_state=42)  # contamination = proportion of outliers
 y_pred_iso = iso_forest.fit_predict(X_scaled)
-
-# -1 indicates an anomaly, 1 indicates a normal observation
 data['Anomaly_Isolation_Forest'] = y_pred_iso
 
 # Save the DataFrame with anomaly labels to a new CSV file
@@ -55,48 +54,67 @@ plt.xlabel('Latency')
 plt.ylabel('Packet Loss Rate')
 
 # Save the plot to a file
-plot_file = 'anomaly_detection_plot.png'
+plot_file = 'anomaly_detection_isolation_forest.png'
 plt.savefig(plot_file)
-print(f"Anomaly detection plot saved to {plot_file}.")
+print(f"Anomaly detection plot (Isolation Forest) saved to {plot_file}.")
 plt.show()
 
-# Local Outlier Factor (LOF)
+# --- Local Outlier Factor ---
 lof = LocalOutlierFactor(n_neighbors=20, contamination=0.1)
 y_pred_lof = lof.fit_predict(X_scaled)
-
-# -1 indicates an anomaly, 1 indicates a normal observation
 data['Anomaly_LOF'] = y_pred_lof
 
 # Visualize the anomalies detected by LOF
 plt.figure(figsize=(10, 6))
-sns.scatterplot(x=data['Latency'], y=data['Signal_Strength'], hue=data['Anomaly_LOF'], palette={1: 'blue', -1: 'red'})
+sns.scatterplot(
+    x=data['Latency'], 
+    y=data['Signal_Strength'], 
+    hue=data['Anomaly_LOF'], 
+    palette={1: 'blue', -1: 'red'}
+)
 plt.title('Anomaly Detection using LOF')
+plot_file = 'anomaly_detection_lof.png'
+plt.savefig(plot_file)
+print(f"Anomaly detection plot (LOF) saved to {plot_file}.")
 plt.show()
 
-
-# One-Class SVM
+# --- One-Class SVM ---
 svm = OneClassSVM(nu=0.1, kernel='rbf', gamma='scale')
 y_pred_svm = svm.fit_predict(X_scaled)
-
-# -1 indicates an anomaly, 1 indicates a normal observation
 data['Anomaly_SVM'] = y_pred_svm
 
 # Visualize the anomalies detected by One-Class SVM
 plt.figure(figsize=(10, 6))
-sns.scatterplot(x=data['Energy_Efficiency'], y=data['Throughput'], hue=data['Anomaly_SVM'], palette={1: 'blue', -1: 'red'})
+sns.scatterplot(
+    x=data['Energy_Efficiency'], 
+    y=data['Signal_Strength'], 
+    hue=data['Anomaly_SVM'], 
+    palette={1: 'blue', -1: 'red'}
+)
 plt.title('Anomaly Detection using One-Class SVM')
+plot_file = 'anomaly_detection_svm.png'
+plt.savefig(plot_file)
+print(f"Anomaly detection plot (One-Class SVM) saved to {plot_file}.")
 plt.show()
 
-
-
+# --- Pair Plots ---
+pairplot_file = 'pairplot_isolation_forest.png'
 sns.pairplot(data, hue="Anomaly_Isolation_Forest", vars=features, palette={1: 'blue', -1: 'red'})
 plt.suptitle('Pair Plot for Isolation Forest Anomalies', y=1.02)
+plt.savefig(pairplot_file)
+print(f"Pair plot (Isolation Forest) saved to {pairplot_file}.")
 plt.show()
 
+pairplot_file = 'pairplot_lof.png'
 sns.pairplot(data, hue="Anomaly_LOF", vars=features, palette={1: 'blue', -1: 'red'})
 plt.suptitle('Pair Plot for LOF Anomalies', y=1.02)
+plt.savefig(pairplot_file)
+print(f"Pair plot (LOF) saved to {pairplot_file}.")
 plt.show()
 
+pairplot_file = 'pairplot_svm.png'
 sns.pairplot(data, hue="Anomaly_SVM", vars=features, palette={1: 'blue', -1: 'red'})
 plt.suptitle('Pair Plot for One-Class SVM Anomalies', y=1.02)
+plt.savefig(pairplot_file)
+print(f"Pair plot (One-Class SVM) saved to {pairplot_file}.")
 plt.show()

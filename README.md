@@ -197,6 +197,11 @@ data['Anomaly_SVM'] = y_pred_svm
   - `kernel='rbf'`: Uses a radial basis function kernel.
 - Adds a new column `Anomaly_SVM` with anomaly labels.
 
+
+
+![anomaly_detection_svm](https://github.com/user-attachments/assets/a5f66795-5096-4643-be12-ca37ac241270)
+
+
 ---
 
 ### 13. **Visualization for One-Class SVM**
@@ -231,7 +236,12 @@ plt.show()
 - Creates pair plots to compare the anomalies detected by each method across all features.
 - Highlights anomalies in red and normal points in blue for visual analysis of relationships.
 
+  ![pairplot_isolation_forest](https://github.com/user-attachments/assets/c54b78d3-c5a8-4ab9-8a9b-c121ca05a31f)
+
+
 ---
 
-ok done
+![pairplot_svm](https://github.com/user-attachments/assets/19b68e21-ce36-4494-84cf-5df3f12cfaf2)
+![pairplot_lof](https://github.com/user-attachments/assets/673b9804-6fba-438f-87ae-160173ec1806)
+
 

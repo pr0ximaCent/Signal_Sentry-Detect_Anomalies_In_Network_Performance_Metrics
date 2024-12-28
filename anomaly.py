@@ -59,3 +59,16 @@ plot_file = 'anomaly_detection_plot.png'
 plt.savefig(plot_file)
 print(f"Anomaly detection plot saved to {plot_file}.")
 plt.show()
+
+# Local Outlier Factor (LOF)
+lof = LocalOutlierFactor(n_neighbors=20, contamination=0.1)
+y_pred_lof = lof.fit_predict(X_scaled)
+
+# -1 indicates an anomaly, 1 indicates a normal observation
+data['Anomaly_LOF'] = y_pred_lof
+
+# Visualize the anomalies detected by LOF
+plt.figure(figsize=(10, 6))
+sns.scatterplot(x=data['Latency'], y=data['Signal_Strength'], hue=data['Anomaly_LOF'], palette={1: 'blue', -1: 'red'})
+plt.title('Anomaly Detection using LOF')
+plt.show()

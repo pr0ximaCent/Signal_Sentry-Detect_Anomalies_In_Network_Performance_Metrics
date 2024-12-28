@@ -72,3 +72,17 @@ plt.figure(figsize=(10, 6))
 sns.scatterplot(x=data['Latency'], y=data['Signal_Strength'], hue=data['Anomaly_LOF'], palette={1: 'blue', -1: 'red'})
 plt.title('Anomaly Detection using LOF')
 plt.show()
+
+
+# One-Class SVM
+svm = OneClassSVM(nu=0.1, kernel='rbf', gamma='scale')
+y_pred_svm = svm.fit_predict(X_scaled)
+
+# -1 indicates an anomaly, 1 indicates a normal observation
+data['Anomaly_SVM'] = y_pred_svm
+
+# Visualize the anomalies detected by One-Class SVM
+plt.figure(figsize=(10, 6))
+sns.scatterplot(x=data['Energy_Efficiency'], y=data['Throughput'], hue=data['Anomaly_SVM'], palette={1: 'blue', -1: 'red'})
+plt.title('Anomaly Detection using One-Class SVM')
+plt.show()

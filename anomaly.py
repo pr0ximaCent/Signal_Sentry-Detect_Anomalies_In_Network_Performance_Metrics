@@ -86,3 +86,17 @@ plt.figure(figsize=(10, 6))
 sns.scatterplot(x=data['Energy_Efficiency'], y=data['Throughput'], hue=data['Anomaly_SVM'], palette={1: 'blue', -1: 'red'})
 plt.title('Anomaly Detection using One-Class SVM')
 plt.show()
+
+
+
+sns.pairplot(data, hue="Anomaly_Isolation_Forest", vars=features, palette={1: 'blue', -1: 'red'})
+plt.suptitle('Pair Plot for Isolation Forest Anomalies', y=1.02)
+plt.show()
+
+sns.pairplot(data, hue="Anomaly_LOF", vars=features, palette={1: 'blue', -1: 'red'})
+plt.suptitle('Pair Plot for LOF Anomalies', y=1.02)
+plt.show()
+
+sns.pairplot(data, hue="Anomaly_SVM", vars=features, palette={1: 'blue', -1: 'red'})
+plt.suptitle('Pair Plot for One-Class SVM Anomalies', y=1.02)
+plt.show()

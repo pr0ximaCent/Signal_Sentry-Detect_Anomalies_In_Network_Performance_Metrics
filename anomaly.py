@@ -7,10 +7,10 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import IsolationForest
 from sklearn.neighbors import LocalOutlierFactor
 from sklearn.svm import OneClassSVM
-
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, confusion_matrix
 # Set the directory where the files are located
-base_dir = r"C:\Users\ASUS\Downloads\Telecom Anomaly Detection"
-os.chdir(base_dir)  # Change to the specified directory
+# base_dir = r"C:\Users\ASUS\Downloads\Telecom Anomaly Detection"
+# os.chdir(base_dir)  # Change to the specified directory
 
 # Load dataset (assuming it's stored in a CSV file)
 data_file = 'telecom_anomaly.csv'
@@ -26,7 +26,8 @@ features = ['Latency', 'Packet_Loss_Rate', 'Signal_Strength', 'Interference_Leve
 
 # Extract the features for anomaly detection
 X = data[features]
-
+sns.histplot(df['feature'], kde=True)
+plt.show()
 # Standardizing the features (important for distance-based algorithms)
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
